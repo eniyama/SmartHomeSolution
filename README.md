@@ -50,7 +50,7 @@ Users must generate build files locally using STM32CubeIDE.
 
 ### Step 1: Clone or Download the Repository
 ```bash
-git clone https://github.com/<your-username>/smart_home_automation.git
+git clone https://github.com/eniyama/smart_home_automation.git
 
 ### Step 2: Open STM32CubeIDE
 1. Launch **STM32CubeIDE**
