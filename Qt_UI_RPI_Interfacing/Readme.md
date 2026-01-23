@@ -1,4 +1,5 @@
 SmartHomeDashboard Setup on Raspberry Pi
+
 This README describes the steps to set up and run the SmartHomeDashboard application on a Raspberry
 Pi. The instructions assume you have two files on your host system:
 
@@ -53,6 +54,7 @@ vi ~/.bashrc
 
 # Add the above export commands at the end
 source ~/.bashrc
+
 9. cd ~/apps/UIapplication
 ./SmartHomeDashboard
 
@@ -67,11 +69,13 @@ Reboot the Raspberry Pi:
 sudo reboot
 
 After reboot, log in to the console and run the application:
+
 11. cd ~/apps/UIapplication
 ./SmartHomeDashboard
 If you select 
 B2 Desktop (GUI) instead, the UI may not display correctly with Qt 
 eglfs .
+
 Notes
 1)Ensure all paths in the environment variables match your extracted folders. 
 2)eglfs requires exclusive access to the framebuffer, hence booting to console mode is
