@@ -7,10 +7,11 @@ jan19_qt6.5.3.tar.gz (Qt Runtime)
 UIapplication_jan19.tar.gz (Application UI)
 
 1. Copy Files to Raspberry Pi
-Use 
+
 rsync to copy the files from the host system to the Raspberry Pi:
 
 rsync-avz--progress UIapplication_jan19.tar.gz user@192.168.0.46:/home/user/
+
 rsync-avz--progress jan19_qt6.5.3.tar.gz user@192.168.0.46:/home/user/
 
 Options used: - --progress → Shows copy progress- -a → Keeps file permissions- -z → Compresses files during transfer 
@@ -18,16 +19,20 @@ Options used: - --progress → Shows copy progress- -a → Keeps file permission
 2. Verify Files on Raspberry Pi
 After copying, log in to the Raspberry Pi and verify the files:
 ls-lh ~/
+
 You should see: 
+
 UIapplication_jan19.tar.gz
 jan19_qt6.5.3.tar.gz
 
 3. Create Directories
 Create directories for Qt runtime and applications:
+
 mkdir-p ~/qt
 mkdir-p ~/apps
 
 4. Extract Files
+
 Extract the Qt runtime and the application:
 tar-xvzf jan19_qt6.5.3.tar.gz-C ~/qt
 tar-xvzf UIapplication_jan19.tar.gz-C ~/apps
