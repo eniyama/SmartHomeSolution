@@ -23,6 +23,7 @@ ls-lh ~/
 You should see: 
 
 UIapplication_jan19.tar.gz
+
 jan19_qt6.5.3.tar.gz
 
 3. Create Directories
