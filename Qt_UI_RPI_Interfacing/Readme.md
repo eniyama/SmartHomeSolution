@@ -132,5 +132,7 @@ cd ~/apps/UIapplication
 Notes
 
 1 Ensure all environment variable paths match the extracted directories.
+
 2 eglfs requires exclusive access to the framebuffer; console boot mode is recommended.
+
 3 Verify Qt runtime and application compatibility with the Raspberry Pi OS version.
