@@ -1,0 +1,91 @@
+curl -X POST "http://localhost:8000/api/v1/recognition/subjects" \
+  -H "Content-Type: application/json" \
+  -H "x-api-key: 01861243-e223-43be-9c4f-a778f86ab7a2" \
+  -d '{ "subject": "person2" }'
+  
+  
+  curl -X POST "http://localhost:8000/api/v1/recognition/faces?subject=varun" \
+  -H "x-api-key: 01861243-e223-43be-9c4f-a778f86ab7a2" \
+  -F "file=@/home/umadevi/face_images/varun.jpg"
+
+
+
+curl -X POST "http://localhost:8000/api/v1/recognition/recognize" \
+  -H "x-api-key: 01861243-e223-43be-9c4f-a778f86ab7a2" \
+  -F "file=@/home/umadevi/face_images/varun.jpg"
+
+
+
+
+
+
+
+import subprocess
+import json
+import os
+import sys
+
+API_KEY = "01861243-e223-43be-9c4f-a778f86ab7a2"
+BASE_URL = "http://localhost:8000/api/v1/recognition"
+SIMILARITY_THRESHOLD = 0.9
+
+
+def run_command(command):
+    """Run curl command and return stdout"""
+    result = subprocess.run(command, capture_output=True, text=True)
+    return result.stdout.strip()
+
+
+def recognize_face(image_path):
+    """Call CompreFace API to recognize face"""
+    command = [
+        "curl",
+        "-s",
+        "-X", "POST",
+        f"{BASE_URL}/recognize",
+        "-H", f"x-api-key: {API_KEY}",
+        "-F", f"file=@{image_path}"
+    ]
+
+    out = run_command(command)
+
+    try:
+        data = json.loads(out)
+    except json.JSONDecodeError:
+        return "unmatch"
+
+    # No face detected
+    if "result" not in data or len(data["result"]) == 0:
+        return "unmatch"
+
+    subjects = data["result"][0].get("subjects", [])
+    if len(subjects) == 0:
+        return "unmatch"
+
+    subject = subjects[0]["subject"]
+    similarity = subjects[0].get("similarity", 0)
+
+    if similarity < SIMILARITY_THRESHOLD:
+        return "unmatch"
+
+    return subject
+
+
+# ---------------- MAIN ----------------
+
+if __name__ == "__main__":
+
+    if len(sys.argv) < 2:
+        print("unmatch")  # Qt didn't pass an image
+        sys.exit(0)
+
+    image_path = sys.argv[1]
+
+    if not os.path.exists(image_path):
+        print("unmatch")
+        sys.exit(0)
+
+    result = recognize_face(image_path)
+    print(result)  # Qt will read this single line
+
+
