@@ -7,7 +7,7 @@ MqttManager::MqttManager(QObject *parent)
     : QObject(parent)
 {
     // MQTT broker details
-    m_client.setHostname("192.168.0.16");   // your broker IP
+    m_client.setHostname("192.168.0.19");   // your broker IP
     m_client.setPort(1883);
     m_client.setClientId("QtSmartHome");
 
