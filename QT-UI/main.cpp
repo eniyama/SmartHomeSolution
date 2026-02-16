@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) //starting point of application
     return app.exec();//programme runs until the app is closed
 }*/
 #include "MqttManager.h"
+#include "HttpManager.h"
 #include <QQmlContext>
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -31,14 +32,18 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     MqttManager mqttManager;
-    mqttManager.connectToBroker();
+    HttpManager httpManager;
+
+    // AWS API Gateway endpoint for light control
+    httpManager.setApiBaseUrl("https://3sd2hn2m3c.execute-api.ap-south-1.amazonaws.com/prod/control");
 
     QQmlApplicationEngine engine;
 
     engine.rootContext()->setContextProperty("mqttManager", &mqttManager);
+    engine.rootContext()->setContextProperty("httpManager", &httpManager);
 
     engine.load(QUrl(QStringLiteral("qrc:/SmartHome/qml/Main.qml")));
+    mqttManager.connectToBroker();
 
     return app.exec();
 }
-
